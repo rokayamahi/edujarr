@@ -5,11 +5,14 @@ const bcrypt = require("bcrypt");
 
 exports.registrationController = asyncHandler(async (req, res) => {
    const { name, email, password } = req.body;
-   
+
+   //hash the password
+   const hashPassword = await bcrypt.hash(password, 12);
+
    const user = new userModel({
     name,
     email,
-    password: await bcrypt.hash(password, 12)
+    password: hashPassword
    });
 
    await user.save();
