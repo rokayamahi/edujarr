@@ -53,3 +53,24 @@ exports.loginController = asyncHandler(async (req, res) => {
    };
    return apiResponse(res, 200, true, 'Login successful', user);
 });
+
+exports.verifyOtpController = asyncHandler(async (req, res) => { 
+   const { email, otp } = req.body;
+
+   const finduser = await userModel.findOne({ email });
+
+   if (!finduser) {
+      return apiResponse(res, 404, false, 'User not found');
+   }
+
+   if (finduser.otp !== parseInt(otp)) {
+      return apiResponse(res, 400, false, 'Invalid OTP');
+   }
+
+   finduser.verified = true;
+   finduser.otp = undefined;
+   await finduser.save();
+
+   return apiResponse(res, 200, true, 'OTP verified successfully');
+
+});
