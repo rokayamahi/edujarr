@@ -1,20 +1,20 @@
 const mongoose = require('mongoose');
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const userSchema = new Schema({
     name: {
         type: String,
-        required: [ true, 'Name is required']
+        required: [true, 'Name is required']
     },
     email: {
         type: String,
-        required: [ true, 'Email is required'],
+        required: [true, 'Email is required'],
         unique: [true, 'Email must be unique'],
         trim: true
     },
     password: {
         type: String,
-        required: [ true, 'Password is required'],
+        required: [true, 'Password is required'],
         select: false,
         minlength: [6, 'Password must be at least 6 characters long'],
         trim: true
@@ -29,7 +29,7 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    address:{
+    address: {
         type: String,
     },
     role: {
@@ -37,7 +37,12 @@ const userSchema = new Schema({
         enum: ['user', 'admin'],
         default: 'user'
     }
-});
+},
+    {
+        timestamps: true,
+        versionKey: false
+    }
+);
 
 
 

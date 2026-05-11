@@ -5,6 +5,7 @@ const port = process.env.PORT || 5000;
 const { dbConfig } = require("./config/db");
 const { globalErrorHandler } = require("./utils/globalErrorHandler");
 
+
 dbConfig();
 
 app.use(express.json());
