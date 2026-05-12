@@ -4,7 +4,7 @@ const { registrationController, loginController, verifyOtpController } = require
 
 router.post('/registration', registrationController);
 router.post('/login', loginController);
-router.post('/verify-otp',verifyOtpController)
+router.post('/verify-otp',verifyOtpController);
 
 
 module.exports = router;
