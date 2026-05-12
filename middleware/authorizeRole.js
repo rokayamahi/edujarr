@@ -1,15 +1,16 @@
-const { apiResponse } = require("../utils/apiResponse");
 
-exports.authorizeRole = (...roles) => {
-  return (req, res, next) => {
-    const userRole = req.user?.role; 
+const {apiResponse} = require ("../utils/apiResponse")
 
-    console.log(`Checking Role - Current: "${userRole}", Allowed: ${JSON.stringify(roles)}`);
 
-    if (roles.includes(userRole)) {
-      next();
-    } else {
-      return apiResponse(res, 403, false, "Access denied");
+exports.authorizeRole = (...role)=>{
+    return (req, res, next)=>{
+        const {role} = req.user
+        let accessrole = role.split(",")
+        let access = accessrole.includes(req.user.role)
+        if(role == "admin"){
+            next()
+        }else{
+            apiResponse(res, 401, "only admin can access this route")
+        }
     }
-  };
-};
+}
